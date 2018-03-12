@@ -25,6 +25,7 @@ A tiny url web app.
 
 - Node
 - Express
+- MongoDB/Mongoose
 - Chai/chai-http
 
 ## Installation
@@ -34,8 +35,14 @@ A tiny url web app.
 Install all dependencies:
 `npm install`
 
-Run build from production server:
+Have mongo running locally in the background:
+`mongod`
+
+Run build from production server in another terminal window:
 `node index.js`
+
+navigate to `localhost:5000` in the browser
+
 
 **To develop react app**
 
@@ -75,3 +82,6 @@ What tech is used for testing.
 ## Next Steps
 
 My list of tasks if the project doesn't warrant the use of something like trello.
+
+- express server up and running.
+- Mongo DB connected.
