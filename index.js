@@ -6,6 +6,7 @@ const dotenv = require('dotenv');
 const express = require('express');
 const morgan = require('morgan');
 const session = require('express-session');
+const passport = require('./server/utils/LocalStrategy');
 
 // load environment variabels
 dotenv.config();
@@ -38,6 +39,8 @@ app.use(session({
 }));
 
 // use passport middleware
+app.use(passport.initialize());
+app.use(passport.session());
 
 // load routes
 app.use('/', require('./server/routes'));
