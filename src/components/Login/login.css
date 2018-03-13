@@ -53,11 +53,11 @@
   font-size: 16px;
 
   color: #656565;
-  background-color: #fefefe;
+  background-color: #2CEAA3;
 }
 
 .login .active {
-  background-color: #2CEAA3;
+  background-color: #f5f5f5;
 }
 
 .login .login--form input {

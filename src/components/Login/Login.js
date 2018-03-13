@@ -26,11 +26,13 @@ const Login = props =>
       <input
         type="email"
         placeholder="email"
-        value={props.email} />
+        value={props.email}
+        onChange={props.handleEmailChange} />
       <input
         type="password"
         placeholder="password"
-        value={props.password} />
+        value={props.password}
+        onChange={props.handlePasswordChange} />
       <input
         className="submit"
         type="submit"
@@ -42,7 +44,10 @@ Login.propTypes = {
   email: PropTypes.string.isRequired,
   password: PropTypes.string.isRequired,
   existingUser: PropTypes.bool.isRequired,
-  toggleExistingUser: PropTypes.func.isRequired
+  toggleExistingUser: PropTypes.func.isRequired,
+  handleEmailChange: PropTypes.func.isRequired,
+  handlePasswordChange: PropTypes.func.isRequired,
+  handleLogin: PropTypes.func.isRequired
 }
 
 export default Login;
