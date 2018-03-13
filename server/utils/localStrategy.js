@@ -7,7 +7,6 @@ passport.use('local', new LocalStrategy({
   usernameField: 'email',
   passwordField: 'password'
 }, function ( req, email, attemptedPassword, done ) {
-  console.log('hit local strategy');
   // find user document
   User.findOne({ email: email }, function ( err, foundUser ) {
     if (!foundUser) {

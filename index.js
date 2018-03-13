@@ -13,10 +13,9 @@ dotenv.config();
 
 // express app
 const app = express();
-const db = require('./server/db');
 
 // make production files static
-app.use(express.static('build'));
+app.use(express.static('client/build'));
 
 // compression middleware
 app.use(compression());
@@ -27,15 +26,17 @@ app.use(morgan('combined', {
 }));
 
 // body-parser for handling json request objects
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(cookieParser());
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
 // session setup for authentication
-app.use(cookieParser());
 app.use(session({
   secret: process.env.SESSION_SECRET || 'foundry',
+  key: 'user',
   resave: true,
-  saveUninitialized: false
+  saveUninitialized: false,
+  cookie: { maxage: 43200000, secure: false }
 }));
 
 // use passport middleware
@@ -46,7 +47,8 @@ app.use(passport.session());
 app.use('/', require('./server/routes'));
 
 // start server
+const db = require('./server/db');
 const server = app.listen(process.env.PORT || 5000, () =>
   console.log(`   Server listening on port ${server.address().port}`));
 
-module.exports = server;
+// module.exports = server;

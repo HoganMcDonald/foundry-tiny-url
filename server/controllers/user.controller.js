@@ -18,28 +18,31 @@ module.exports = class UserController {
     })
   } // register()
 
-  static login(req, res, next) {
+  static login(req, res) {
+    console.log(req.isAuthenticated())
+    res.status(200).send({
+      email: req.user.email,
+      id: req.user.id
+    })
+  } // login()
+
+  static self(req, res) {
     if (req.isAuthenticated()) {
       res.status(200).send({
         email: req.user.email,
         id: req.user.id
       })
     } else {
-      res.status(500).send('something went wrong');
+      res.status(401).send({error: 'not logged in'});
     }
-  } // login()
-
-  static self(req, res) {
-    res.send({
-      email: req.user.email
-    })
   } // self()
 
   static authenticate(req, res, next) {
+    console.log('req.user', req.user)
     if (req.isAuthenticated()) {
       next()
     } else {
-      res.sendStatus(401);
+      res.status(401).send({error: 'you\'re not logged in'});
     }
   } // authenticate()
 
