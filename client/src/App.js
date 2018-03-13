@@ -21,20 +21,20 @@ class App extends Component {
   } // state
 
   componentWillMount() {
-    this.getUser();
+    this.getUser()
+      .then(user => {
+        this.setState({
+          loggedIn: true,
+          email: user.email,
+          userId: user.id
+        })
+      })
   } // componentWillMount()
 
   getUser = ()=> {
     let requestObject = new Request('/user', {credentials: 'include'});
-    fetch(requestObject)
-      .then(response => {
-        console.log(response);
-        return response.json();
-      })
-      .then(body => {
-        console.log(body.email);
-        return body;
-      })
+    return fetch(requestObject)
+      .then(res => res.json());
   } // getUser()
 
   toggleExistingUser() {
@@ -88,46 +88,6 @@ class App extends Component {
           }
         })
       });
-
-    // if (this.state.existingUser) { // attempt a login
-    //   fetch('/login', requestObject)
-    //     .then( res => res.json())
-    //     .then( body => {
-    //       this.setState({
-    //         email: body.email,
-    //         userId: body.id,
-    //         loggedIn: true
-    //       })
-    //     })
-    //     .catch(err => {
-    //       this.setState({
-    //         modal: {
-    //           active: true,
-    //           heading: 'Invalid Credentials',
-    //           body: 'The username or password you used don\'t match what we have on file.'
-    //         }
-    //       })
-    //     });
-    // } else { // attempt register
-    //   fetch('/register', requestObject)
-    //     .then( res => res.json())
-    //     .then( body => {
-    //       this.setState({
-    //         email: body.email,
-    //         userId: body.id,
-    //         loggedIn: true
-    //       })
-    //     })
-    //     .catch(err => {
-    //       this.setState({
-    //         modal: {
-    //           active: true,
-    //           heading: 'Username Not Available',
-    //           body: 'The username you attempted to use is not available.'
-    //         }
-    //       })
-    //     });
-    // }
   } // handleAuthentication()
 
   render() {

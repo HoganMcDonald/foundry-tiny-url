@@ -19,7 +19,7 @@ router.route('/login')
   .post(passport.authenticate('local'), User.login);
 
 router.route('/user')
-  .get(User.self);
+  .get(User.isLoggedIn, User.self);
 
 router.route('/:urlCode')
   .get( (req, res) => {

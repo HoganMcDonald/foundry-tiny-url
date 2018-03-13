@@ -19,25 +19,20 @@ module.exports = class UserController {
   } // register()
 
   static login(req, res) {
-    console.log(req.isAuthenticated())
     res.status(200).send({
       email: req.user.email,
-      id: req.user.id
+      id: req.user._id
     })
   } // login()
 
   static self(req, res) {
-    if (req.isAuthenticated()) {
-      res.status(200).send({
-        email: req.user.email,
-        id: req.user.id
-      })
-    } else {
-      res.status(401).send({error: 'not logged in'});
-    }
+    res.status(200).send({
+      email: req.user[0].email,
+      id: req.user[0].id
+    })
   } // self()
 
-  static authenticate(req, res, next) {
+  static isLoggedIn(req, res, next) {
     console.log('req.user', req.user)
     if (req.isAuthenticated()) {
       next()
