@@ -3,15 +3,18 @@ import './App.css';
 
 // components
 import Login from './components/Login/Login';
+import URLs from './components/URLs/URLs';
 
 class App extends Component {
 
   state = {
     loggedIn: false,
-    email: 'hpeter.mcdonald@gmail.com',
-    password: '123',
+    email: '',
+    password: '',
     existingUser: true,
     userId: "",
+    urls: [],
+    newUrl: "",
     modal: {
       active: false,
       heading: '',
@@ -21,20 +24,27 @@ class App extends Component {
   } // state
 
   componentWillMount() {
-    this.getUser()
-      .then(user => {
-        this.setState({
-          loggedIn: true,
-          email: user.email,
-          userId: user.id
-        })
-      })
+    this.getUser();
   } // componentWillMount()
 
   getUser = ()=> {
     let requestObject = new Request('/user', {credentials: 'include'});
-    return fetch(requestObject)
-      .then(res => res.json());
+    fetch(requestObject)
+      .then(res => {
+        if (res.status < 400) {
+          return res.json();
+        }
+      })
+      .then(user => {
+        if (user) {
+          this.setState({
+            loggedIn: true,
+            email: user.email,
+            userId: user.id
+          })
+        }
+      })
+      .catch(err => console.error(err));
   } // getUser()
 
   toggleExistingUser() {
@@ -43,17 +53,12 @@ class App extends Component {
     })
   } // toggleExistingUser()
 
-  handleEmailChange(e) {
+  handleOnChange(e) {
+    console.log('on change')
     this.setState({
-      email: e.target.value
+      [e.target.name]: e.target.value
     });
-  } // handleEmailChange()
-
-  handlePasswordChange(e) {
-    this.setState({
-      password: e.target.value
-    });
-  } // handlePasswordChange()
+  } // handleOnChange()
 
   handleAuthentication = (e) => {
     e.preventDefault();
@@ -92,17 +97,23 @@ class App extends Component {
 
   render() {
 
-    let login;
+    let content;
     if (!this.state.loggedIn) {
-      login = (
+      content = (
         <Login
           email={this.state.email}
           password={this.state.password}
           existingUser={this.state.existingUser}
           toggleExistingUser={() => this.toggleExistingUser()}
-          handleEmailChange={(e)=> this.handleEmailChange(e)}
+          handleOnChange={(e)=> this.handleOnChange(e)}
           handlePasswordChange={(e)=> this.handlePasswordChange(e)}
           handleLogin={(e) => this.handleAuthentication(e)} />
+      )
+    } else {
+      content = (
+        <URLs
+          newUrl={this.state.newUrl}
+          urls={this.state.urls} />
       )
     }
 
@@ -110,7 +121,7 @@ class App extends Component {
       <div className="App">
         <h1 className="main-header">Foundry Tiny URL</h1>
         <div className="dashboard">
-          {login}
+          {content}
 
         </div>
       </div>

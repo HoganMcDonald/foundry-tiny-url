@@ -33,7 +33,6 @@ module.exports = class UserController {
   } // self()
 
   static isLoggedIn(req, res, next) {
-    console.log('req.user', req.user)
     if (req.isAuthenticated()) {
       next()
     } else {
