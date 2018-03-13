@@ -6,7 +6,7 @@ const dotenv = require('dotenv');
 const express = require('express');
 const morgan = require('morgan');
 const session = require('express-session');
-const passport = require('./server/utils/LocalStrategy');
+const passport = require('./server/utils/localStrategy');
 
 // load environment variabels
 dotenv.config();
