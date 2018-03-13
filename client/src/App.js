@@ -106,14 +106,16 @@ class App extends Component {
           existingUser={this.state.existingUser}
           toggleExistingUser={() => this.toggleExistingUser()}
           handleOnChange={(e)=> this.handleOnChange(e)}
-          handlePasswordChange={(e)=> this.handlePasswordChange(e)}
+          handlePasswordChange={(e)=> this.handleOnChange(e)}
           handleLogin={(e) => this.handleAuthentication(e)} />
       )
     } else {
       content = (
         <URLs
           newUrl={this.state.newUrl}
-          urls={this.state.urls} />
+          urls={this.state.urls}
+          handleOnChange={(e) => this.handleOnChange(e)}
+           />
       )
     }
 

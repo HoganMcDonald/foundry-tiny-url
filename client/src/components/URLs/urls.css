@@ -42,3 +42,60 @@
   background-color: #2CEAA3;
   color: #FEFEFE;
 }
+
+.urls hr {
+  width: 80%;
+  height: 2px;
+  margin: 18px auto 18px;
+  border: none;
+
+  background-color: #656565;
+}
+
+.urls .url-list {
+  width: 80%;
+
+  margin: 16px auto;
+  padding: 0;
+
+  list-style: none;
+}
+
+.urls .url-list .url {
+  height: 40px;
+  background-color: #f5f5f5;
+
+  display: flex;
+  align-items: center;
+
+  position: relative;
+
+  font-family: 'Roboto';
+  font-size: 16px;
+}
+
+.urls .url-list .url:nth-child(odd) {
+  background-color: #FEFEFE;
+}
+
+.urls .url-list .url p {
+  margin: 0;
+
+  position: absolute;
+  left: 16px;
+
+  overflow: hidden;
+}
+
+.urls .url-list .url button {
+  height: 26px;
+  width: 26px;
+
+  border: none;
+  border-radius: 999px;
+
+  position: absolute;
+  right: 16px;
+
+  background-color: #EF4135;
+}
