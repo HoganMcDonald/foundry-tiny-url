@@ -83,5 +83,10 @@ What tech is used for testing.
 
 My list of tasks if the project doesn't warrant the use of something like trello.
 
-- express server up and running.
-- Mongo DB connected.
+- ~~express server up and running.~~
+- ~~Mongo DB connected.~~
+- Login form. 30mins
+- Passport local strategy. 20mins
+- Handle auth on FE. 10mins
+- base 36 number system that increments. 20mins
+- create new url. 30mins

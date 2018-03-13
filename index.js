@@ -1,8 +1,16 @@
-// environment variabels
-require('dotenv').config();
+// dependencies
+const bodyParser = require('body-parser');
+const compression = require('compression');
+const cookieParser = require('cookie-parser');
+const dotenv = require('dotenv');
+const express = require('express');
+const morgan = require('morgan');
+const session = require('express-session');
+
+// load environment variabels
+dotenv.config();
 
 // express app
-const express = require('express');
 const app = express();
 const db = require('./server/db');
 
@@ -10,21 +18,20 @@ const db = require('./server/db');
 app.use(express.static('build'));
 
 // compression middleware
-app.use(require('compression')());
+app.use(compression());
 
 // display requests that returned errors in terminal
-app.use(require('morgan')('combined', {
+app.use(morgan('combined', {
   skip: function (req, res) { return res.statusCode < 400 }
 }));
 
 // body-parser for handling json request objects
-const bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 // session setup for authentication
-app.use(require('cookie-parser')());
-app.use(require('express-session')({
+app.use(cookieParser());
+app.use(session({
   secret: process.env.SESSION_SECRET || 'foundry',
   resave: true,
   saveUninitialized: false

@@ -1,18 +1,34 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
 
+// components
+import Login from './components/Login/Login';
+
 class App extends Component {
+  state = {
+    loggedIn: false,
+    email: '',
+    password: '',
+    existingUser: true
+  }
+
+  toggleExistingUser() {
+    this.setState({
+      existingUser: !this.state.existingUser
+    })
+  }
+
   render() {
     return (
       <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
+        <h1 className="main-header">Foundry Tiny URL</h1>
+        <div className="dashboard">
+          <Login
+            email={this.state.email}
+            password={this.state.password}
+            existingUser={this.state.existingUser}
+            toggleExistingUser={() => this.toggleExistingUser()} />
+        </div>
       </div>
     );
   }
