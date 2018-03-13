@@ -13,7 +13,12 @@ class App extends Component {
     password: '',
     existingUser: true,
     userId: "",
-    urls: [],
+    urls: [
+      {
+        endpoint: '/h63g78',
+        redirect: 'http://hoganmcdonald.com'
+      }
+    ],
     newUrl: "",
     modal: {
       active: false,

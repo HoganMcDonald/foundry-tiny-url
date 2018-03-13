@@ -22,10 +22,7 @@ const URLs = props =>
     </form>
     <hr/>
     <ul className="url-list">
-      <li className="url"><p>Testing</p><button>&#43;</button></li>
-      <li className="url"><p>Testing</p><button>&#43;</button></li>
-      <li className="url"><p>Testing</p><button>&#43;</button></li>
-      <li className="url"><p>Testing</p><button>&#43;</button></li>
+      {props.urls.map((url, i) => <URL URL={url} key={i}/>)}
     </ul>
   </div>
 
