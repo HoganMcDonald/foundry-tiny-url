@@ -29,7 +29,8 @@ const URLs = props =>
 URLs.propTypes = {
   urls: PropTypes.array.isRequired,
   newUrl: PropTypes.string.isRequired,
-  handleOnChange: PropTypes.func.isRequired
+  handleOnChange: PropTypes.func.isRequired,
+  handleNewUrl: PropTypes.func.isRequired
 };
 
 export default URLs;

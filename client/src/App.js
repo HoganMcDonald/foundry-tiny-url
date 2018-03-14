@@ -16,6 +16,18 @@ class App extends Component {
     urls: [
       {
         endpoint: '/h63g78',
+        redirect: 'http://hoganmcdonald.com/asdfasdfasdfasdfasdfasdfasdfasdfasdfasdf'
+      },
+      {
+        endpoint: '/h63g78',
+        redirect: 'http://hoganmcdonald.comasdfasdfasdfasdfasdfasdfasdfasdfasdfasdf'
+      },
+      {
+        endpoint: '/h63g78',
+        redirect: 'http://hoganmcdonald.comasdfasdfasdfasdfasdfasdfasdfasdfasdfasdf'
+      },
+      {
+        endpoint: '/h63g78',
         redirect: 'http://hoganmcdonald.com'
       }
     ],
@@ -64,6 +76,21 @@ class App extends Component {
       [e.target.name]: e.target.value
     });
   } // handleOnChange()
+
+  handleNewUrl = () => {
+    // send object with domain to server
+    const request = new Request('/url', {
+      method: 'post',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      credentials: 'include',
+      body: JSON.stringify({
+        redirect: this.state.newUrl
+      })
+    })
+  }
 
   handleAuthentication = (e) => {
     e.preventDefault();
@@ -120,7 +147,7 @@ class App extends Component {
           newUrl={this.state.newUrl}
           urls={this.state.urls}
           handleOnChange={(e) => this.handleOnChange(e)}
-           />
+          handleNewUrl={this.newUrl} />
       )
     }
 

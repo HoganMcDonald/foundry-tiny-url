@@ -4,8 +4,10 @@ import './URL.css';
 
 const URL = props =>
   <li className="url">
-    <p>{props.URL.endpoint}</p>
-    <button>&#43;</button>
+    <p>{props.URL.redirect}</p>
+    <div className="fade">
+      <button>&#215;</button>
+    </div>
   </li>
 
 URL.propTypes ={

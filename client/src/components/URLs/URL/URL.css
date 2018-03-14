@@ -7,6 +7,8 @@
 
   position: relative;
 
+  overflow: hidden;
+
   font-family: 'Roboto';
   font-size: 16px;
 }
@@ -20,8 +22,20 @@
 
   position: absolute;
   left: 16px;
+}
 
-  overflow: hidden;
+.urls .url-list .url .fade {
+  height: 100%;
+  width: 90px;
+
+  position: absolute;
+  right: 0;
+
+  background: linear-gradient(to right, rgba(255, 255, 255, 0) 0%, #FEFEFE 30%);
+}
+
+.urls .url-list .url:nth-child(even) .fade {
+  background: linear-gradient(to right, rgba(255, 255, 255, 0) 0%, #f5f5f5 30%);
 }
 
 .urls .url-list .url button {
@@ -33,7 +47,8 @@
 
   position: absolute;
   right: 16px;
-  transform: rotate(45deg);
+  top: 50%;
+  transform: translateY(-50%);
 
   background-color: #EF4135;
 }
