@@ -25,9 +25,7 @@ router.route('/user')
 router.route('/url')
   .post(User.isLoggedIn, Url.new)
 
-// router.route('/:urlCode')
-//   .get( (req, res) => {
-//     res.send(req.params.urlCode);
-//   })
+router.route('/:urlCode') // 8 diget alpha-numeric including - and _
+  .get(Url.redirect);
 
 module.exports = router;

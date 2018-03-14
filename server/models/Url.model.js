@@ -1,21 +1,14 @@
 const mongoose = require ('mongoose');
 const Schema = mongoose.Schema;
 
-const Counter = require('./Counter.model');
-
-// check if url counter exists. creates one if it doesn't
-Counter.find({key: 'url'})
-  .then((urlCounter) => {
-    if (!urlCounter) {
-      Counter.create({key: 'url'})
-    }
-  });
+// generates 7 character unique alphanumeric string. 3.5e12 permutations
+const shortId = require('shortid');
 
 const urlSchema = new Schema({
   endpoint: {
     type: String,
-    required: false,
-    unique: true
+    unique: true,
+    default: shortId.generate
   },
   user_id: {
     type: String,
@@ -24,19 +17,12 @@ const urlSchema = new Schema({
   },
   redirect: {
     type: String,
-    required: false,
+    required: true,
     unique: false
   },
   visits: {
     type: Number,
-    required: false,
-    unique: false,
     default: 0
-  },
-  counter: {
-    type: Number,
-    required: true,
-    unique: true
   }
 });
 
