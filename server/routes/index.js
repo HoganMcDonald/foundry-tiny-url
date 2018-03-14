@@ -6,6 +6,7 @@ const cel = require('connect-ensure-login');
 
 // controllers
 const User = require('../controllers/user.controller');
+const Url = require('../controllers/url.controller');
 
 router.route('/')
   .get( (req, res) => {
@@ -21,9 +22,12 @@ router.route('/login')
 router.route('/user')
   .get(User.isLoggedIn, User.self);
 
-router.route('/:urlCode')
-  .get( (req, res) => {
-    res.send(req.params.urlCode);
-  })
+router.route('/url')
+  .post(User.isLoggedIn, Url.new)
+
+// router.route('/:urlCode')
+//   .get( (req, res) => {
+//     res.send(req.params.urlCode);
+//   })
 
 module.exports = router;
