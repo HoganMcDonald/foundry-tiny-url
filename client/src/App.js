@@ -13,24 +13,7 @@ class App extends Component {
     password: '',
     existingUser: true,
     userId: "",
-    urls: [
-      {
-        endpoint: '/h63g78',
-        redirect: 'http://hoganmcdonald.com/asdfasdfasdfasdfasdfasdfasdfasdfasdfasdf'
-      },
-      {
-        endpoint: '/h63g78',
-        redirect: 'http://hoganmcdonald.comasdfasdfasdfasdfasdfasdfasdfasdfasdfasdf'
-      },
-      {
-        endpoint: '/h63g78',
-        redirect: 'http://hoganmcdonald.comasdfasdfasdfasdfasdfasdfasdfasdfasdfasdf'
-      },
-      {
-        endpoint: '/h63g78',
-        redirect: 'http://hoganmcdonald.com'
-      }
-    ],
+    urls: [],
     newUrl: "",
     modal: {
       active: false,
@@ -59,7 +42,14 @@ class App extends Component {
             email: user.email,
             userId: user.id
           })
+          return fetch(new Request('/url', {credentials: 'include'}))
         }
+      })
+      .then(urls => urls.json())
+      .then(body => {
+        this.setState({
+          urls: [...body.urls]
+        })
       })
       .catch(err => console.error(err));
   } // getUser()
@@ -71,14 +61,14 @@ class App extends Component {
   } // toggleExistingUser()
 
   handleOnChange(e) {
-    console.log('on change')
     this.setState({
       [e.target.name]: e.target.value
     });
   } // handleOnChange()
 
-  handleNewUrl = () => {
-    // send object with domain to server
+  handleNewUrl(e) {
+    e.preventDefault();
+    console.log('new user');
     const request = new Request('/url', {
       method: 'post',
       headers: {
@@ -90,7 +80,19 @@ class App extends Component {
         redirect: this.state.newUrl
       })
     })
-  }
+
+    fetch(request)
+      .then( res => res.json() )
+      .then( body => {
+        this.setState({
+          urls: [
+            ...this.state.urls,
+            body
+          ],
+          newUrl: ''
+        })
+      })
+  } // handleNewUrl()
 
   handleAuthentication = (e) => {
     e.preventDefault();
@@ -147,7 +149,7 @@ class App extends Component {
           newUrl={this.state.newUrl}
           urls={this.state.urls}
           handleOnChange={(e) => this.handleOnChange(e)}
-          handleNewUrl={this.newUrl} />
+          handleNewUrl={(e) => this.handleNewUrl(e)} />
       )
     }
 

@@ -7,7 +7,8 @@ import URL from './URL/URL';
 
 const URLs = props =>
   <div className="urls">
-    <form className="url--form">
+    <form className="url--form"
+      onSubmit={props.handleNewUrl} >
       <input
         type="text"
         name="newUrl"

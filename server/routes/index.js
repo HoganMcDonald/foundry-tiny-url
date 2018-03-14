@@ -23,6 +23,7 @@ router.route('/user')
   .get(User.isLoggedIn, User.self);
 
 router.route('/url')
+  .get(User.isLoggedIn, Url.all)
   .post(User.isLoggedIn, Url.new)
 
 router.route('/:urlCode') // 8 diget alpha-numeric including - and _
