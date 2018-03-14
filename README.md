@@ -6,8 +6,8 @@ A tiny url web app.
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 **Table of Contents**  *generated with [DocToc](https://github.com/thlorenz/doctoc)*
 
-- [Tech Used](#tech-used)
 - [Installation](#installation)
+- [Tech Used](#tech-used)
 - [API Reference](#api-reference)
   - [/](#)
   - [/login](#login)
@@ -21,39 +21,40 @@ A tiny url web app.
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
+## Installation
+
+**To run Locally**
+
+Install all dependencies:
+`npm install` in root directory, NOT client folder
+
+Have [mongo](https://docs.mongodb.com/manual/tutorial/install-mongodb-on-os-x/) running locally in the background:
+`mongod`
+
+Run server in another terminal window:
+`node index.js`
+
+navigate to `localhost:5000` in the browser
+
+**To develop react app**
+
+The front end was built with create-react-app and has its own package.json in the client directory. CRA is configured to process http requests through the node server as a proxy, but it serves the FE through its own server on another port. The outer node app uses the client/build directory in production and ignores the rest of the react app.
+
+Install all dependencies:
+`npm i && cd client && npm i && cd ..`
+
+Start local development server:
+`npm run dev`
+
+Build any changes into production ready files used by express server:
+`cd client && npm run build`
+
 ## Tech Used
 
 - Node
 - Express
 - MongoDB/Mongoose
 - Chai/chai-http
-
-## Installation
-
-**To run Locally**
-
-Install all dependencies:
-`npm install`
-
-Have mongo running locally in the background:
-`mongod`
-
-Run build from production server in another terminal window:
-`node index.js`
-
-navigate to `localhost:5000` in the browser
-
-
-**To develop react app**
-
-Install all dependencies:
-`npm install`
-
-Start local development server:
-`npm start`
-
-Build any changes into production ready files used by express server:
-`npm run build`
 
 ## API Reference
 
@@ -85,8 +86,8 @@ My list of tasks if the project doesn't warrant the use of something like trello
 
 - ~~express server up and running.~~
 - ~~Mongo DB connected.~~
-- Login form. 30mins
-- Passport local strategy. 20mins
-- Handle auth on FE. 10mins
-- base 36 number system that increments. 20mins
-- create new url. 30mins
+- ~~Login form.~~
+- ~~Passport local strategy.~~
+- ~~Handle auth on FE.~~
+- ~~base 36 number system that increments.~~
+- ~~create new url.~~
