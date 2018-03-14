@@ -28,3 +28,10 @@
 
   background-color: #FEFEFE
 }
+
+@media (min-width:961px)  {
+ /* tablet, landscape iPad, lo-res laptops ands desktops */
+ .dashboard {
+   width: 500px;
+ }
+}

@@ -61,6 +61,20 @@
   list-style: none;
 }
 
-.urls .url-list .url:nth-child(odd) {
-  background-color: #FEFEFE;
+@media (min-width:961px)  {
+ /* tablet, landscape iPad, lo-res laptops ands desktops */
+ .dashboard {
+   width: 960px;
+ }
+
+ .urls .url-list {
+   display: grid;
+   grid-template-columns: auto auto;
+   grid-column-gap: 32px;
+ }
+
+ .urls .url--form .new-url {
+   width: 350px;
+ }
+
 }
