@@ -2,6 +2,9 @@ const URL = require('../models/Url.model');
 
 module.exports = class Url {
 
+  /*
+        POST: create a new url
+  */
   static new(req, res) {
     let newUrl = new URL({
       user_id: req.user[0]._id,
@@ -16,6 +19,10 @@ module.exports = class Url {
     })
   } // new()
 
+  /*
+        GET: find a url in db and
+          redirect
+  */
   static redirect(req, res) {
     let urlCode = req.params.urlCode;
     URL.findOneAndUpdate({
@@ -30,6 +37,10 @@ module.exports = class Url {
     .catch(err => res.send({message: 'something went wrong'}));
   } // redirect()
 
+  /*
+        GET: retrieve all url documents
+          for an authenticated user
+  */
   static all(req, res) {
     URL.find({user_id: req.user[0]._id})
       .then(urls => {
@@ -39,5 +50,16 @@ module.exports = class Url {
         res.status(400).send({message: 'unable to retriece records'});
       });
   } // all()
+
+  static remove(req, res) {
+    const urlId = req.params.id;
+    URL.remove({_id: urlId})
+      .then(url => {
+        res.status(200).send('deleted');
+      })
+      .catch(err => {
+        res.status(400).send({message: 'document not found'});
+      });
+  }
 
 } // Url

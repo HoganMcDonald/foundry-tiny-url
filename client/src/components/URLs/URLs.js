@@ -23,7 +23,14 @@ const URLs = props =>
     </form>
     <hr/>
     <ul className="url-list">
-      {props.urls.map((url, i) => <URL URL={url} key={i}/>)}
+      {props.urls.map((url, i) => {
+        return (
+          <URL
+            URL={url}
+            key={url._id}
+            removeUrlAt={() => props.removeUrlAt(url._id)} />
+        )
+      })}
     </ul>
   </div>
 
@@ -31,7 +38,8 @@ URLs.propTypes = {
   urls: PropTypes.array.isRequired,
   newUrl: PropTypes.string.isRequired,
   handleOnChange: PropTypes.func.isRequired,
-  handleNewUrl: PropTypes.func.isRequired
+  handleNewUrl: PropTypes.func.isRequired,
+  removeUrlAt: PropTypes.func.isRequired
 };
 
 export default URLs;

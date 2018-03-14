@@ -30,11 +30,7 @@ class App extends Component {
   getUser = ()=> {
     let requestObject = new Request('/user', {credentials: 'include'});
     fetch(requestObject)
-      .then(res => {
-        if (res.status < 400) {
-          return res.json();
-        }
-      })
+      .then(res => res.json())
       .then(user => {
         if (user) {
           this.setState({
@@ -43,6 +39,8 @@ class App extends Component {
             userId: user.id
           })
           return fetch(new Request('/url', {credentials: 'include'}))
+        } else {
+          throw Error('user not logged in');
         }
       })
       .then(urls => urls.json())
@@ -51,7 +49,13 @@ class App extends Component {
           urls: [...body.urls]
         })
       })
-      .catch(err => console.error(err));
+      .catch(err => {
+        this.setState({
+          loggedIn: false,
+          email: '',
+          userId: ''
+        })
+      });
   } // getUser()
 
   toggleExistingUser() {
@@ -94,6 +98,21 @@ class App extends Component {
       })
   } // handleNewUrl()
 
+  removeUrlAt = id => {
+    const request = new Request(`/url/${id}`, {
+      method: 'delete',
+      credentials: 'include'
+    })
+
+    fetch(request)
+      .then( res => {
+        this.setState({
+          urls: this.state.urls.filter( url => url._id !== id)
+        })
+      })
+      .catch( err => console.error(err) )
+  } // removeUrlAt()
+
   handleAuthentication = (e) => {
     e.preventDefault();
     const requestObject = new Request((this.state.existingUser) ? '/login' : '/register', {
@@ -108,16 +127,9 @@ class App extends Component {
         password: this.state.password
       })
     });
-
     fetch(requestObject)
       .then( res => res.json())
-      .then( body => {
-        this.setState({
-          email: body.email,
-          userId: body.id,
-          loggedIn: true
-        })
-      })
+      .then( body => this.getUser())
       .catch(err => {
         this.setState({
           modal: {
@@ -149,7 +161,8 @@ class App extends Component {
           newUrl={this.state.newUrl}
           urls={this.state.urls}
           handleOnChange={(e) => this.handleOnChange(e)}
-          handleNewUrl={(e) => this.handleNewUrl(e)} />
+          handleNewUrl={(e) => this.handleNewUrl(e)}
+          removeUrlAt={this.removeUrlAt} />
       )
     }
 

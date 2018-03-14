@@ -26,6 +26,9 @@ router.route('/url')
   .get(User.isLoggedIn, Url.all)
   .post(User.isLoggedIn, Url.new)
 
+router.route('/url/:id')
+  .delete(User.isLoggedIn, Url.remove);
+
 router.route('/:urlCode') // 8 diget alpha-numeric including - and _
   .get(Url.redirect);
 
