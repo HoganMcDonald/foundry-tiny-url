@@ -6,6 +6,8 @@
   left: 0;
   right: 0;
 
+  text-align: center;
+
   background-color: #00334E;
 }
 
@@ -21,12 +23,17 @@
 .dashboard {
   width: 90%;
 
-  margin: 0px auto 5vw auto;
+  margin: 0px auto 16px auto;
   border-radius: 15px;
   display: flex;
   justify-content: center;
 
   background-color: #FEFEFE
+}
+
+.logout {
+  position: relative;
+  color: #949494;
 }
 
 @media (min-width:961px)  {

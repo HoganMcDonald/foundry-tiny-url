@@ -34,7 +34,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(session({
   secret: process.env.SESSION_SECRET || 'foundry',
   key: 'user',
-  resave: true,
+  resave: false,
   saveUninitialized: false,
   cookie: { maxage: 43200000, secure: false }
 }));

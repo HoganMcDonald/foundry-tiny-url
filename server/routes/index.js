@@ -19,12 +19,19 @@ router.route('/register')
 router.route('/login')
   .post(passport.authenticate('local'), User.login);
 
+router.route('/logout')
+  .get((req, res) => {
+    req.logout();
+    req.session.destroy();
+    res.redirect('/');
+  })
+
 router.route('/user')
   .get(User.isLoggedIn, User.self);
 
 router.route('/url')
   .get(User.isLoggedIn, Url.all)
-  .post(User.isLoggedIn, Url.new)
+  .post(User.isLoggedIn, Url.verify, Url.new)
 
 router.route('/url/:id')
   .delete(User.isLoggedIn, Url.remove);

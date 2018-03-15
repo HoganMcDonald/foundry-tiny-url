@@ -33,7 +33,7 @@ class App extends Component {
   // reusable error handling for all fetch requests
   handleBadRequest = response => {
     if (!response.ok) {
-      throw Error(response);
+      throw Error(response.status);
     } else {
       return response;
     }
@@ -102,7 +102,7 @@ class App extends Component {
       },
       credentials: 'include',
       body: JSON.stringify({
-        redirect: this.state.newUrl
+        redirect: `${(this.state.newUrl.startsWith('http://') || this.state.newUrl.startsWith('http://')) ? '' : 'https://'}${this.state.newUrl}`
       })
     })
     fetch(request)
@@ -115,6 +115,15 @@ class App extends Component {
             body
           ],
           newUrl: ''
+        })
+      })
+      .catch(err => {
+        this.setState({
+          modal: {
+            active: true,
+            heading: 'Invalid URL',
+            body: 'it looks like the url you supplied doesn\'t go anywhere! try adding "https://" to the begining.'
+          }
         })
       })
   } // handleNewUrl()
@@ -165,7 +174,6 @@ class App extends Component {
       .then(this.handleBadRequest)
       .then( res => this.getUser())
       .catch(err => {
-        console.log(err);
         if (this.state.existingUser) {
           this.setState({
             modal: {
@@ -183,7 +191,6 @@ class App extends Component {
             }
           })
         }
-
       });
   } // handleAuthentication()
 
@@ -219,6 +226,7 @@ class App extends Component {
           {content}
           {(this.state.modal.active) ? <Modal modal={this.state.modal} dismissModal={() => this.dismissModal()}/> : null}
         </div>
+        {(this.state.loggedIn) ? <a className="logout" href="/logout">Log Out</a> : null}
       </div>
     );
   } // render()

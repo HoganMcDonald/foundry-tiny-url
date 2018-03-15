@@ -1,7 +1,22 @@
 const path = require('path');
+const request = require('request');
 const URL = require('../models/Url.model');
 
 module.exports = class Url {
+
+  /*
+        will verify that a
+          url is valid
+  */
+  static verify(req, res, next) {
+    request(req.body.redirect, (err, response, body) => {
+      if (err || response.statusCode >= 400) {
+        res.status(400).send('not a valid url');
+      } else {
+        next();
+      }
+    })
+  }
 
   /*
         POST: create a new url

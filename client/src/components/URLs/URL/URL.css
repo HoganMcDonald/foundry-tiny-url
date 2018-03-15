@@ -1,5 +1,5 @@
 .url {
-  height: 40px;
+  height: 130px;
   background-color: #f5f5f5;
 
   display: flex;
@@ -17,11 +17,14 @@
   background-color: #FEFEFE;
 }
 
-.url p {
-  margin: 0;
+.url .data {
+  height: 100%;
+  width: 100%;
+}
 
-  position: absolute;
-  left: 16px;
+.url p {
+  margin: 16px 0px 0px 16px;
+  text-align: left;
 }
 
 .url .fade {
