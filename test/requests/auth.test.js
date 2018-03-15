@@ -42,3 +42,18 @@ describe('/login', () => {
       })
   })
 })
+
+describe('/logout', () => {
+  it('GET: should log out user and redirect to /', () => {
+    request(app)
+      .get('/logout')
+      .end((err, res, body) => {
+        if (err) {
+          done(err);
+        } else {
+          expect(res).to.redirect;
+          done();
+        }
+      })
+  })
+})
