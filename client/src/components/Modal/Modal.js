@@ -13,7 +13,7 @@ const Modal = props =>
 
 Modal.propTypes = {
   modal: PropTypes.object.isRequired,
-  dismissModal: PropTypes.func.isRequire
+  dismissModal: PropTypes.func.isRequired
 }
 
 export default Modal;

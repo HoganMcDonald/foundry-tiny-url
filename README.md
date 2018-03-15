@@ -96,6 +96,8 @@ My list of tasks if the project doesn't warrant the use of something like trello
 - sort on urls
 - ~~fix style bug on urls~~
 - forgot password
-- email validator
+- ~~email validator~~
 - jawbone for each url
 - catch errors related to getting urls
+- logout route
+- 404 page for redirects

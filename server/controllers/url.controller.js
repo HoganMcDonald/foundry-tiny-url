@@ -1,3 +1,4 @@
+const path = require('path');
 const URL = require('../models/Url.model');
 
 module.exports = class Url {
@@ -34,7 +35,7 @@ module.exports = class Url {
     .then((url) => {
       res.redirect(url.redirect);
     })
-    .catch(err => res.send({message: 'something went wrong'}));
+    .catch(err => res.sendFile(path.resolve('client/build/notFound.html')));
   } // redirect()
 
   /*
@@ -51,6 +52,10 @@ module.exports = class Url {
       });
   } // all()
 
+  /*
+        DELETE: deletes a url specified
+          by id in params
+  */
   static remove(req, res) {
     const urlId = req.params.id;
     URL.remove({_id: urlId})

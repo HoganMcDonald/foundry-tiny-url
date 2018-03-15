@@ -163,9 +163,9 @@ class App extends Component {
     });
     fetch(requestObject)
       .then(this.handleBadRequest)
-      .then( res => res.json())
-      .then( body => this.getUser())
+      .then( res => this.getUser())
       .catch(err => {
+        console.log(err);
         if (this.state.existingUser) {
           this.setState({
             modal: {
