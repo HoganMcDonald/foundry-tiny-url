@@ -11,14 +11,14 @@ const Login = props =>
       <hr/>
     </section>
     <button
-      className={`${(props.existingUser) ? 'active' : ''}
-      toggle-Button`}
+      className={`${(props.existingUser) ? 'active' : ''} toggle-Button`}
+      name="login"
       onClick={props.toggleExistingUser}>
       Login
     </button>
     <button
-      className={`${(!props.existingUser) ? 'active' : ''}
-      toggle-Button`}
+      className={`${(!props.existingUser) ? 'active' : ''} toggle-Button`}
+      name="register"
       onClick={props.toggleExistingUser}>
       Sign Up
     </button>

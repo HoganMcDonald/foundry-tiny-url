@@ -4,6 +4,7 @@ import './App.css';
 // components
 import Login from './components/Login/Login';
 import URLs from './components/URLs/URLs';
+import Modal from './components/Modal/Modal';
 
 class App extends Component {
 
@@ -23,13 +24,27 @@ class App extends Component {
     res: {}
   } // state
 
+
   componentWillMount() {
     this.getUser();
   } // componentWillMount()
 
+
+  // reusable error handling for all fetch requests
+  handleBadRequest = response => {
+    if (!response.ok) {
+      throw Error(response);
+    } else {
+      return response;
+    }
+  } // handleBadRequest()
+
+
+  // authenticates user before app mounts. gets urls if auth succesful.
   getUser = ()=> {
     let requestObject = new Request('/user', {credentials: 'include'});
     fetch(requestObject)
+      .then(this.handleBadRequest)
       .then(res => res.json())
       .then(user => {
         if (user) {
@@ -43,6 +58,7 @@ class App extends Component {
           throw Error('user not logged in');
         }
       })
+      .then(this.handleBadRequest)
       .then(urls => urls.json())
       .then(body => {
         this.setState({
@@ -58,21 +74,26 @@ class App extends Component {
       });
   } // getUser()
 
-  toggleExistingUser() {
+
+  // flip existingUser (login - true vs. register - false)
+  toggleExistingUser(e) {
     this.setState({
-      existingUser: !this.state.existingUser
+      existingUser: (e.target.name === 'login') ? true : false
     })
   } // toggleExistingUser()
 
+
+  // handles all on change events for inputs
   handleOnChange(e) {
     this.setState({
       [e.target.name]: e.target.value
     });
   } // handleOnChange()
 
+
+  // will post url and inject new url into state
   handleNewUrl(e) {
     e.preventDefault();
-    console.log('new user');
     const request = new Request('/url', {
       method: 'post',
       headers: {
@@ -84,8 +105,8 @@ class App extends Component {
         redirect: this.state.newUrl
       })
     })
-
     fetch(request)
+      .then(this.handleBadRequest)
       .then( res => res.json() )
       .then( body => {
         this.setState({
@@ -98,6 +119,17 @@ class App extends Component {
       })
   } // handleNewUrl()
 
+
+  // closes the active modal
+  dismissModal = () =>
+    this.setState({
+      modal: {
+        active: false
+      }
+    }) // dismissModal()
+
+
+  // makes delete request to /url/:id
   removeUrlAt = id => {
     const request = new Request(`/url/${id}`, {
       method: 'delete',
@@ -113,6 +145,8 @@ class App extends Component {
       .catch( err => console.error(err) )
   } // removeUrlAt()
 
+
+  // will either post /login or /register based on state
   handleAuthentication = (e) => {
     e.preventDefault();
     const requestObject = new Request((this.state.existingUser) ? '/login' : '/register', {
@@ -128,16 +162,28 @@ class App extends Component {
       })
     });
     fetch(requestObject)
+      .then(this.handleBadRequest)
       .then( res => res.json())
       .then( body => this.getUser())
       .catch(err => {
-        this.setState({
-          modal: {
-            active: true,
-            heading: 'Invalid Credentials',
-            body: 'The username or password you used don\'t match what we have on file.'
-          }
-        })
+        if (this.state.existingUser) {
+          this.setState({
+            modal: {
+              active: true,
+              heading: 'Invalid Credentials',
+              body: 'The email or password you used don\'t match what we have on file.'
+            }
+          })
+        } else {
+          this.setState({
+            modal: {
+              active: true,
+              heading: 'Invalid Email',
+              body: 'The email you provided doesn\'t seem to be valid.'
+            }
+          })
+        }
+
       });
   } // handleAuthentication()
 
@@ -150,7 +196,7 @@ class App extends Component {
           email={this.state.email}
           password={this.state.password}
           existingUser={this.state.existingUser}
-          toggleExistingUser={() => this.toggleExistingUser()}
+          toggleExistingUser={(e) => this.toggleExistingUser(e)}
           handleOnChange={(e)=> this.handleOnChange(e)}
           handlePasswordChange={(e)=> this.handleOnChange(e)}
           handleLogin={(e) => this.handleAuthentication(e)} />
@@ -171,12 +217,13 @@ class App extends Component {
         <h1 className="main-header">Foundry Tiny URL</h1>
         <div className="dashboard">
           {content}
-
+          {(this.state.modal.active) ? <Modal modal={this.state.modal} dismissModal={() => this.dismissModal()}/> : null}
         </div>
       </div>
     );
   } // render()
 
-}
+} // App
+
 
 export default App;

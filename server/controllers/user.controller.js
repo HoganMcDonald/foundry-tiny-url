@@ -9,6 +9,7 @@ module.exports = class UserController {
     })
     newUser.save( err => {
       if (err) {
+        console.log(err);
         res.status(400).send(err);
       } else {
         req.login(newUser, (err) => {
