@@ -92,11 +92,15 @@ My list of tasks if the project doesn't warrant the use of something like trello
 - ~~base 36 number system that increments.~~
 - ~~create new url.~~
 - ~~validate urls~~
-- test coverage on api
-- sort on urls
 - ~~fix style bug on urls~~
-- forgot password
 - ~~email validator~~
-- catch errors related to getting urls
 - ~~logout route~~
 - ~~404 page for redirects~~
+- test coverage on api
+- sort on urls
+- forgot password
+- catch errors related to getting urls
+
+heroku bugs
+- url not wrapping
+- hoganmcdonald.com won't verify
