@@ -51,4 +51,4 @@ const db = require('./server/db');
 const server = app.listen(process.env.PORT || 5000, () =>
   console.log(`   Server listening on port ${server.address().port}`));
 
-// module.exports = server;
+module.exports = server;

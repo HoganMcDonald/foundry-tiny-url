@@ -53,25 +53,31 @@ describe('validateEmail', () => {
 
 describe('API', () => {
 
-  // create a test user before every test
-  beforeEach(done => {
-    let testUser = new User(Test.user);
-		testUser.save(err=> {
-			if (err) {
-				console.log(err);
-			} else {
-				Test.user._id = testUser._id.toString();
-				done();
-			}
-    })
-  }) // beforeEach()
+	const app = require('../index');
 
-  // drop the test db
-  afterEach(done => {
-    DB.db.dropDatabase();
-  }) // afterEach()
+	describe('/', () => {
+		it('GET: should serve the react app', (done) => {
+			request(app)
+				.get('/')
+				.end((err, res) => {
+					expect(res).to.have.status(200);
+					expect(res).to.be.html;
+					done();
+				})
+		})
+	})
 
-  describe('Pre Auth');
 
-  describe('Post Auth')
+  describe('Auth Routes', () => {
+    require('./requests/auth.test');
+  });
+
+  describe('User Routes', () => {
+    require('./requests/user.test');
+  });
+
+  describe('Url Routes', () => {
+    require('./requests/url.test');
+  });
+
 })
