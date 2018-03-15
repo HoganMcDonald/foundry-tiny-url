@@ -29,9 +29,12 @@
     "server": "node index.js",
     "client": "node start-client.js",
     "dev": "concurrently \"npm run server\" \"npm run client\"",
-    "build": "cd client && npm run build && cd .."
+    "build": "cd client && npm run build && cd ..",
+    "test": "clear && mocha"
   },
   "devDependencies": {
+    "chai": "^4.1.2",
+    "chai-http": "^3.0.0",
     "concurrently": "^3.5.1"
   }
 }
