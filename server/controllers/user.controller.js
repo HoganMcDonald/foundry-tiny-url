@@ -9,12 +9,16 @@ module.exports = class UserController {
     })
     newUser.save( err => {
       if (err) {
-        console.log(err);
         res.status(400).send(err);
       } else {
-        req.login(newUser, (err) => {
-          res.status(201).send();
-        });
+        req.login(newUser, function(err) {
+          if (err) {
+            console.log(err);
+            res.status(400).send('unable to authenticate.')
+          } else {
+            res.status(201).send(newUser);
+          }
+        })
       }
     })
   } // register()
@@ -37,7 +41,7 @@ module.exports = class UserController {
     if (req.isAuthenticated()) {
       next()
     } else {
-      res.status(401).send({error: 'you\'re not logged in'});
+      res.redirect('/');
     }
   } // authenticate()
 

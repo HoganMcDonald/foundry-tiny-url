@@ -23,16 +23,16 @@ passport.use('local', new LocalStrategy({
     }
   });
 
-  passport.serializeUser( function( user, done ) {
-    done( null, user.id );
-  });
-
-  passport.deserializeUser( function( id, done ) {
-    User.find({_id: id}, function( err, foundUser ) {
-      done( null, foundUser );
-    });
-  });
-
 }));
+
+passport.serializeUser( function( user, done ) {
+  done( null, user._id );
+});
+
+passport.deserializeUser( function( id, done ) {
+  User.find({_id: id}, function( err, foundUser ) {
+    done( null, foundUser );
+  });
+});
 
 module.exports = passport;

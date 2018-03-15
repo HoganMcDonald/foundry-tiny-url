@@ -1,5 +1,5 @@
 process.env.NODE_ENV = 'test';
-process.env.MONGODB_URI = 'localhost:27017/test';
+process.env.MONGODB_URI = 'mongodb://localhost/test';
 
 const chai = require('chai');
 const expect = chai.expect;
@@ -54,6 +54,12 @@ describe('validateEmail', () => {
 describe('API', () => {
 
 	const app = require('../index');
+
+	// drop the test db
+	afterEach(done => {
+	  DB.db.dropDatabase();
+		done();
+	}) // afterEach()
 
 	describe('/', () => {
 		it('GET: should serve the react app', (done) => {

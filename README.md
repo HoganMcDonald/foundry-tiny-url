@@ -18,6 +18,7 @@ biggest challenges
   - [/login](#login)
   - [/logout](#logout)
   - [/url](#url)
+    - [/:id](#id)
   - [/user](#user)
   - [/:generatedUrl](#generatedurl)
 - [Testing](#testing)
@@ -30,16 +31,16 @@ biggest challenges
 
 **To Run Locally**
 
-Install all dependencies:
+1. Install all dependencies:
 `npm install` in root directory, NOT client folder
 
-Have [mongo](https://docs.mongodb.com/manual/tutorial/install-mongodb-on-os-x/) running locally in the background:
+2. Have [mongo](https://docs.mongodb.com/manual/tutorial/install-mongodb-on-os-x/) running locally in the background:
 `mongod`
 
-Run server in another terminal window:
+3. Run server in another terminal window:
 `node index.js`
 
-navigate to `localhost:5000` in the browser
+4. navigate to `localhost:5000` in the browser
 
 **To Develop**
 
@@ -56,30 +57,61 @@ Build any changes into production ready files used by express server:
 
 ## Tech Used
 
+**API**
 - Node
 - Express
 - MongoDB/Mongoose
-- Chai/chai-http
+- Passport Js
+- bcrypt
+- request // verify urls
+- shortId // npm package that generates id for urls
+
+**Front End**
+- Create-react-app
+- react
+- prop-types
+
+**Testing**
+- Mocha
+- Chai
+- Chai-http
 
 ## API Reference
 
 ### /
 
+GET: serves index.html
+
 ### /login
+
+POST: logs user in with email and password
 
 ### /logout
 
+GET: logs user out and redirects to /
+
 ### /url
+
+GET: returns all registered urls for currently logged in User
+POST: Creates a new url with redirect location in request body
+
+#### /:id
+
+DELETE: deletes a url by id property
 
 ### /user
 
+GET: returns the currently logged in user
+
 ### /:generatedUrl
+
+GET: finds endpoint in db and either redirects or sends notFound.html handles all get requests not caught by other routes
 
 ## Testing
 
-What tech is used for testing.
+API tested with Mocha.
 
-`How to run the tests`
+`npm test`
 
 ## License
 
@@ -103,7 +135,7 @@ My list of tasks if the project doesn't warrant the use of something like trello
 - ~~404 page for redirects~~
 - ~~sort on urls~~
 - ~~catch errors related to posting urls~~
-- test coverage on api
+- ~~test coverage on api~~
 
 heroku bugs
 - ~~url wrapping~~
