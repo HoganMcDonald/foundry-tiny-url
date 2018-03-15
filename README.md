@@ -2,6 +2,11 @@
 
 A tiny url web app.
 
+biggest challenges
+- fetch credentials
+- validating url - 999 status codes
+- generating an endpoint
+
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 **Table of Contents**  *generated with [DocToc](https://github.com/thlorenz/doctoc)*
@@ -23,7 +28,7 @@ A tiny url web app.
 
 ## Installation
 
-**To run Locally**
+**To Run Locally**
 
 Install all dependencies:
 `npm install` in root directory, NOT client folder
@@ -36,7 +41,7 @@ Run server in another terminal window:
 
 navigate to `localhost:5000` in the browser
 
-**To develop react app**
+**To Develop**
 
 The front end was built with create-react-app and has its own package.json in the client directory. CRA is configured to process http requests through the node server as a proxy, but it serves the FE through its own server on another port. The outer node app uses the client/build directory in production and ignores the rest of the react app.
 
@@ -96,11 +101,11 @@ My list of tasks if the project doesn't warrant the use of something like trello
 - ~~email validator~~
 - ~~logout route~~
 - ~~404 page for redirects~~
+- ~~sort on urls~~
+- ~~catch errors related to posting urls~~
 - test coverage on api
-- sort on urls
-- forgot password
-- catch errors related to getting urls
 
 heroku bugs
-- url not wrapping
-- hoganmcdonald.com won't verify
+- ~~url wrapping~~
+- ~~hoganmcdonald.com won't verify~~
+- ~~logout over modal~~

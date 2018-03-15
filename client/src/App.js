@@ -15,6 +15,7 @@ class App extends Component {
     existingUser: true,
     userId: "",
     urls: [],
+    sortKey: 'visits',
     newUrl: "",
     modal: {
       active: false,
@@ -91,6 +92,14 @@ class App extends Component {
   } // handleOnChange()
 
 
+  // handles sort method change
+  changeSort(e) {
+    this.setState({
+      sortKey: e.target.name
+    })
+  } // changeSort()
+
+
   // will post url and inject new url into state
   handleNewUrl(e) {
     e.preventDefault();
@@ -102,7 +111,7 @@ class App extends Component {
       },
       credentials: 'include',
       body: JSON.stringify({
-        redirect: `${(this.state.newUrl.startsWith('http://') || this.state.newUrl.startsWith('http://')) ? '' : 'https://'}${this.state.newUrl}`
+        redirect: `${(this.state.newUrl.startsWith('http://') || this.state.newUrl.startsWith('https://')) ? '' : 'https://'}${this.state.newUrl}`
       })
     })
     fetch(request)
@@ -215,7 +224,9 @@ class App extends Component {
           urls={this.state.urls}
           handleOnChange={(e) => this.handleOnChange(e)}
           handleNewUrl={(e) => this.handleNewUrl(e)}
-          removeUrlAt={this.removeUrlAt} />
+          removeUrlAt={this.removeUrlAt}
+          sortKey={this.state.sortKey}
+          changeSort={(e) => this.changeSort(e)} />
       )
     }
 
@@ -224,9 +235,9 @@ class App extends Component {
         <h1 className="main-header">Foundry Tiny URL</h1>
         <div className="dashboard">
           {content}
-          {(this.state.modal.active) ? <Modal modal={this.state.modal} dismissModal={() => this.dismissModal()}/> : null}
         </div>
         {(this.state.loggedIn) ? <a className="logout" href="/logout">Log Out</a> : null}
+        {(this.state.modal.active) ? <Modal modal={this.state.modal} dismissModal={() => this.dismissModal()}/> : null}
       </div>
     );
   } // render()

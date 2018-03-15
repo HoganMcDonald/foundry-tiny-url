@@ -9,10 +9,8 @@ module.exports = class Url {
           url is valid
   */
   static verify(req, res, next) {
-    console.log('11111111111111', req.body.redirect)
     request(req.body.redirect, (err, response, body) => {
-      console.log('22222222222222', err, response)
-      if (err || response.statusCode >= 400) {
+      if (err || (response.statusCode >= 400 && response.statusCode !== 999)) {
         res.status(400).send('not a valid url');
       } else {
         next();
