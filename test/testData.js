@@ -33,4 +33,25 @@ const invalidEmails = [
   'email@domain..com'
 ];
 
-module.exports = { user, validEmails, invalidEmails };
+const validUrls = [
+  {
+    redirect: 'https://google.com'
+  },
+  {
+    redirect: 'https://facebook.com'
+  }
+]
+
+const invalidUrls = [
+  {
+    redirect: 'google'
+  },
+  {
+    redirect: 'google.c'
+  },
+  {
+    redirect: 'htttp://google.com'
+  }
+]
+
+module.exports = { user, validEmails, invalidEmails, validUrls, invalidUrls };

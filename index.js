@@ -21,9 +21,11 @@ app.use(express.static('client/build'));
 app.use(compression());
 
 // display requests that returned errors in terminal
-app.use(morgan('combined', {
-  skip: function (req, res) { return res.statusCode < 400 }
-}));
+if(process.env.NODE_ENV !== 'test') {
+  app.use(morgan('combined', {
+    skip: function (req, res) { return res.statusCode < 400 }
+  }));
+}
 
 // body-parser for handling json request objects
 app.use(cookieParser());

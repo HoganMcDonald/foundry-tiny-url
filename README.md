@@ -109,7 +109,7 @@ GET: finds endpoint in db and either redirects or sends notFound.html handles al
 
 ## Testing
 
-API tested with Mocha.
+API is integration tested with Mocha and chai-http. It doesn't have full coverage, but I prioritized the most important routes.
 
 `npm test`
 

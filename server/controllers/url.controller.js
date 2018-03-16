@@ -10,8 +10,8 @@ module.exports = class Url {
   */
   static verify(req, res, next) {
     request(req.body.redirect, (err, response, body) => {
-      if (err || (response.statusCode >= 400 && response.statusCode !== 999)) {
-        res.status(400).send('not a valid url');
+      if (err || (response.statusCode >= 400 && response.statusCode < 500)) {
+        res.status(400).send(`${req.body.redirect} is not a vaild url`);
       } else {
         next();
       }
@@ -58,12 +58,15 @@ module.exports = class Url {
           for an authenticated user
   */
   static all(req, res) {
+    console.log('11111')
     URL.find({user_id: req.user[0]._id})
       .then(urls => {
+        console.log('22222222')
         res.send({urls: urls});
       })
       .catch(err => {
-        res.status(400).send({message: 'unable to retriece records'});
+        console.log('3333333333')
+        res.status(400).send({message: 'unable to retrieve records'});
       });
   } // all()
 

@@ -28,7 +28,7 @@ describe('/register', () => {
 });
 
 describe('/login', () => {
-  it('POST: should login created user', () => {
+  it('POST: should login created user', (done) => {
     request(app)
       .post('/login')
       .send(Test.user)
@@ -44,7 +44,7 @@ describe('/login', () => {
 })
 
 describe('/logout', () => {
-  it('GET: should log out user and redirect to /', () => {
+  it('GET: should log out user and redirect to /', (done) => {
     request(app)
       .get('/logout')
       .end((err, res, body) => {

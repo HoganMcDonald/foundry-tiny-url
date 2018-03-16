@@ -56,7 +56,7 @@ describe('API', () => {
 	const app = require('../index');
 
 	// drop the test db
-	afterEach(done => {
+	after(done => {
 	  DB.db.dropDatabase();
 		done();
 	}) // afterEach()
